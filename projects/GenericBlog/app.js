@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Setup view engine to use Handlebars
-app.engine('hbs', hbs({defaultLayout: 'default', extname: '.hbs', helpers: { select: selectOption }}));
+app.engine('hbs', hbs.engine({defaultLayout: 'default', extname: 'hbs', helpers: { select: selectOption }}));
 app.set('view engine', 'hbs');
 
 // add method over-ride for using DELETE method in forms
