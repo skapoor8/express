@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "a simple multi-user chat application built on Node and Web Sockets",
   "dependencies": {
-    "socket.io": "~0.9.6",
+    "socket.io": "~2.4.0",
     "mime": "~1.2.7"
   },
   "main": "index.js",
