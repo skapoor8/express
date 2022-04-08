@@ -1,0 +1,129 @@
+<h1>Create New Post</h1>
+
+<form action="/haiku/posts/create" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" placeholder="Enter the Title">
+    </div>
+
+    <div>
+        <label for="body">Body</label>
+        <textarea id="tinymce" name="body">Write here</textarea>
+        <input name="image" type="file" id="upload" style="display:none;" onchange="">
+    </div>
+    <div>
+        <label for="coverImage">Cover Image</label>
+        <input type="file" name="coverImage" id="coverImage">
+    </div>
+
+    <div>
+        <label for="status">Status</label>
+        <select name="status" id="status">
+            <option value="draft">Draft</option>
+            <option value="public">Public</option>
+            <option value="private">Private</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            {{#each categories}}
+                <option value="{{_id}}">{{title}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <label for="tags">Tags</label><br>
+    <input type="hidden" id="tagString" name="tags" value="default">
+    <div id="tags">
+        <input type="text" value="" placeholder="Add a tag" />
+    </div><br><br><br>
+
+
+    <div>
+        <label for="allowComments">
+            <input type="checkbox" id="allowComments" name="allowComments">
+            Allow Comments
+        </label>
+    </div>
+
+    <div>
+        <label for="description">Content</label>
+        <textarea name="description" id="description" placeholder="Enter your content here" rows="10"></textarea>
+    </div>
+
+    <button type="submit">Create Post</button>
+
+</form>
+
+<script>
+    //$(function(){ // DOM ready
+    let tagString = "";
+    $(document).ready(function() {
+    // ::: TAGS BOX
+
+    $("#tags input").on({
+        focusout : function() {
+        var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); // allowed characters
+        if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
+        tagString += txt + " ";
+        console.log(tagString);
+        //$("tagString").value(tagString);
+        this.value = "";
+        $("#tagString").val(tagString);
+        //$("tags").value += txt + " ";
+        },
+        keyup : function(ev) {
+        // if: comma|enter (delimit more keyCodes with | pipe)
+        if(/(188|13|32)/.test(ev.which)) $(this).focusout(); 
+        }
+    });
+    $('#tags').on('click', 'span', function() {
+        if(confirm("Remove "+ $(this).text() +"?")) {
+            console.log("removed tag:", $(this).text());
+            tagString = tagString.replace($(this).text(), '');
+            console.log("new tagString:", tagString);
+            $(this).remove(); 
+        }
+    });
+
+    });
+</script>
+
+<style>
+    #tags{
+        float:left;
+        border:1px solid #ccc;
+        padding:5px;
+        font-family:Arial;
+    }
+    #tags > span{
+        cursor:pointer;
+        display:block;
+        float:left;
+        color:#fff;
+        background:#789;
+        padding:5px;
+        padding-right:25px;
+        margin:4px;
+    }
+    #tags > span:hover{
+        opacity:0.7;
+    }
+    #tags > span:after{
+        position:absolute;
+        content:"×";
+        border:1px solid;
+        padding:2px 5px;
+        margin-left:3px;
+        font-size:11px;
+    }
+    #tags > input{
+        background:#eee;
+        border:0;
+        margin:4px;
+        padding:7px;
+        width:auto;
+    }
+</style>

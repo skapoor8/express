@@ -1,0 +1,15 @@
+{
+  "name": "static_file_server_v1",
+  "version": "1.0.0",
+  "description": "Simple static file server in express",
+  "main": "static_server_v1.js",
+  "scripts": {
+    "start": "node static_server_v1.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Siddharth Kapoor",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

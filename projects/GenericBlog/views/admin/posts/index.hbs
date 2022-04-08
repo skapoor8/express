@@ -1,0 +1,33 @@
+
+<h1>Posts Index</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Category</th>
+            <th>Comments Allowed</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each posts}}
+            <tr>
+                <td>{{ title }}</td>
+                <td>{{ description }}</td>
+                <td>{{ status }}</td>
+                <td>{{ category.title }}</td>
+                <td>{{ allowComments }}</td>
+                <td>
+                    <a href="/haiku/posts/{{_id}}/edit">Edit</a>
+                    <form action="/haiku/posts/{{_id}}/delete?newMethod=DELETE" method="post">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+
+    </tbody>
+</table>

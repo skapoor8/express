@@ -1,0 +1,21 @@
+<h1>{{post.title}}</h1>
+
+{{#if post.coverImage }}
+    <div class="post-cover" style="background-image: url({{post.coverImage}})"></div>
+{{/if}}
+
+<div>
+    <br><br>
+
+    {{{post.body}}}
+
+    {{#each post.tags}}
+        <a href="/tag/{{this}}">#{{this}}</a>
+    {{/each}}
+</div>
+    
+<hr>
+<h2>See Responses</h2>
+
+<hr>
+More from Blog Title>>

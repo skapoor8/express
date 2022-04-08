@@ -1,0 +1,156 @@
+<h1>Edit Post</h1>
+
+<form action="/haiku/posts/{{post._id}}/edit?newMethod=PUT" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" value="{{post.title}}">
+    </div>
+
+    <div>
+        <label for="body">Body</label>
+        <textarea id="tinymce" name="body">{{post.body}}</textarea>
+    </div>
+
+    {{#if post.coverImage }}
+        <div style="background-image: url('{{post.coverImage}}');padding-top:300px;width:400px;background-size: auto 100%;"></div>
+        <div>
+            <label for="coverImage">Replace Cover Image</label>
+        
+            <input type="file" name="coverImage" id="coverImage">
+        </div>
+    {{else}}
+        <div>
+            <label for="coverImage">Cover Image</label>
+        
+            <input type="file" name="coverImage" id="coverImage">
+        </div>
+    {{/if}}
+    
+    
+
+    <div>
+        <label for="status">Status</label>
+        <select name="status" id="status">
+            {{#select post.status}}
+                <option value="draft">Draft</option>
+                <option value="public">Public</option>
+                <option value="private">Private</option>  
+            {{/select}}
+        </select>
+    </div>
+
+    <div>
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            {{#select post.category}}
+                {{#each categories}}
+                    <option value="{{_id}}">{{title}}</option>
+                {{/each}}   
+            {{/select}}
+        </select>
+    </div>
+
+    <label for="tags">Tags</label><br>
+    <input type="hidden" id="tagString" name="tags" value="default">
+    <div id="tags">
+        {{#each post.tags}}
+            <span class="tag">{{this}}</span>
+        {{/each}}
+        <input type="text" value="" placeholder="Add a tag" />
+    </div><br><br><br>
+
+    <div>
+        <label for="allowComments">
+            {{#if post.allowComments}}
+                <input type="checkbox" id="allowComments" name="allowComments" checked>
+            {{else}}
+                <input type="checkbox" id="allowComments" name="allowComments" checked>
+            {{/if}}
+            Allow Comments
+        </label>
+    </div>
+
+    <div>
+        <label for="description">Content</label>
+        <textarea name="description" id="description" placeholder="Enter your content here" rows="10">{{post.description}}</textarea>
+    </div>
+
+    <button type="submit">Update Post</button>
+
+</form>
+
+<script>
+    //$(function(){ // DOM ready
+    let tagString = "";
+    $(document).ready(function() {
+    // ::: TAGS BOX
+
+    $("span.tag").each(function() {
+        tagString += $(this).text() + ' ';
+    });
+    $("#tagString").val(tagString);
+
+    $("#tags input").on({
+        focusout : function() {
+        var txt = this.value.replace(/[^a-z0-9\+\-\.\#]/ig,''); // allowed characters
+        if(txt) $("<span/>", {text:txt.toLowerCase(), insertBefore:this});
+        tagString += txt + " ";
+        console.log(tagString);
+        //$("tagString").value(tagString);
+        this.value = "";
+        $("#tagString").val(tagString);
+        //$("tags").value += txt + " ";
+        },
+        keyup : function(ev) {
+        // if: comma|enter (delimit more keyCodes with | pipe)
+        if(/(188|13|32)/.test(ev.which)) $(this).focusout(); 
+        }
+    });
+    $('#tags').on('click', 'span', function() {
+        if(confirm("Remove "+ $(this).text() +"?")) {
+            console.log("removed tag:", $(this).text());
+            tagString = tagString.replace($(this).text(), '');
+            console.log("new tagString:", tagString);
+            $(this).remove(); 
+        }
+    });
+
+    });
+</script>
+
+<style>
+    #tags{
+        float:left;
+        border:1px solid #ccc;
+        padding:5px;
+        font-family:Arial;
+    }
+    #tags > span{
+        cursor:pointer;
+        display:block;
+        float:left;
+        color:#fff;
+        background:#789;
+        padding:5px;
+        padding-right:25px;
+        margin:4px;
+    }
+    #tags > span:hover{
+        opacity:0.7;
+    }
+    #tags > span:after{
+        position:absolute;
+        content:"×";
+        border:1px solid;
+        padding:2px 5px;
+        margin-left:3px;
+        font-size:11px;
+    }
+    #tags > input{
+        background:#eee;
+        border:0;
+        margin:4px;
+        padding:7px;
+        width:auto;
+    }
+</style>

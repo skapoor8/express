@@ -1,0 +1,34 @@
+{
+    "nextId": 2,
+    "data": [
+        {
+            "type": "TodoList",
+            "id": 1,
+            "isMetaList": false,
+            "title": "Today",
+            "createdAt": null,
+            "itemIds": [
+                {
+                    "type": "TodoListItem",
+                    "todoItemId": 1,
+                    "childTodoListItems": null
+                },
+                {
+                    "type": "TodoListItem",
+                    "todoItemId": 2,
+                    "childTodoListItems": null
+                },
+                {
+                    "type": "TodoListItem",
+                    "todoItemId": 3,
+                    "childTodoListItems": null
+                },
+                {
+                    "type": "TodoListItem",
+                    "todoItemId": 4,
+                    "childTodoListItems": null
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+<div>
+    <h1>Tags > {{tag}}</h1>
+
+    <form action="/haiku/tags/{{tag}}/edit" method="POST">
+        <label for="tag">Tag</label>
+        <input type="text" id="tag-input" name="tag" value="{{tag}}">
+        {{#if success}}
+            <button type="submit" id="updated-btn">Updated</button>
+        {{else}}
+            <button type="submit">Save</button>
+        {{/if}}
+    </form>
+
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#tag-input").focus(function(){
+            $("#updated-btn").text("Save");
+        });
+    });
+</script>

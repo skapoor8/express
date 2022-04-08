@@ -1,0 +1,29 @@
+{{#if success_message }}
+
+<div class="alert auto-hide">
+    <strong>{{success_message}}</strong>
+    <button type="button" onclick="this.parentElement.style.display='none';">
+        <span>&times;</span>
+    </button>
+</div>
+
+{{/if}}
+
+{{#if error_message }}
+
+<div class="alert auto-hide">
+    <strong>{{error_message}}</strong>
+    <button type="button" onclick="this.parentElement.style.display='none';">
+        <span>&times;</span>
+    </button>
+</div>
+
+{{/if}}
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function() {
+            $('.auto-hide').slideUp(300);
+        }, 2000);
+    });
+</script>

@@ -1,0 +1,24 @@
+<h1>Tag Results</h1>
+
+
+
+<h2>For tag: {{tag}}</h2>
+Related tags:
+{{#if relatedTags}}    
+    {{#each relatedTags}} <a href="/tag/{{this._id}}">#{{this._id}}</a> {{/each}}
+{{else}}
+    None
+{{/if}}
+<div>
+    {{#each posts}} 
+        <div>
+            {{#if coverImage}}
+                <div class="post-thumbnail" style="background-image: url({{coverImage}})"></div>
+            {{/if}}
+            {{ title }} <br>
+            {{ description }} <br>
+            <a href="/post/{{_id}}">View</a> <br><br>
+        </div>
+    {{/each}}
+</div>
+    

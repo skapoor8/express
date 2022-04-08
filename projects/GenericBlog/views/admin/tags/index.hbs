@@ -1,0 +1,27 @@
+<div>
+    <h1>Tags</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Hits</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tag-list">
+            {{#each tagCounts}}
+                <tr>
+                    <td>{{_id}}</td>
+                    <td>{{count}}</td>
+                    <td>
+                        <a href="/haiku/tags/{{_id}}/edit">Edit</a>
+                    </td>
+                </tr>
+
+            {{/each}}
+
+        </tbody>
+    </table>
+
+</div>

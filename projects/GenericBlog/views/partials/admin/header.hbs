@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/haiku.css">
+
+    <!-- Optional JavaScript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="/js/tinymce/tinymce.min.js"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#tinymce',
+        height: 500,
+        plugins: [
+          'advlist autolink lists link image charmap print preview anchor',
+          'searchreplace visualblocks code fullscreen',
+          'insertdatetime media table paste code help wordcount codesample'
+        ],
+        menubar:'file insert edit format',
+        toolbar: 'undo redo | formatselect | fontsizeselect | ' +
+        ' bold italic backcolor | alignleft aligncenter ' +
+        ' alignright alignjustify | bullist numlist outdent indent |' +
+        ' removeformat | image | codesample |',
+        images_upload_url: '/haiku/tinymceImageUpload',
+        codesample_languages: [
+          {text: 'HTML/XML', value: 'markup'},
+          {text: 'JavaScript', value: 'javascript'},
+          {text: 'CSS', value: 'css'},
+          {text: 'PHP', value: 'php'},
+          {text: 'Ruby', value: 'ruby'},
+          {text: 'Python', value: 'python'},
+          {text: 'Java', value: 'java'},
+          {text: 'C', value: 'c'},
+          {text: 'C#', value: 'csharp'},
+          {text: 'C++', value: 'cpp'}
+        ],
+        file_picker_callback: function (callback, value, meta) {
+          if (meta.filetype == 'image') {
+            $('#upload').trigger('click');
+            $('#upload').on('change', function () {
+              var file = this.files[ 0 ];
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                callback(e.target.result, {
+                  alt: ''
+                });
+              };
+              reader.readAsDataURL(file);
+            });
+          }
+        }
+        /*content_css: [
+          '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+          '//www.tiny.cloud/css/codepen.min.css'
+        ]*/
+      });
+    </script>
+
+    <title>Haiku CMS</title>
+  </head>
+  
+    

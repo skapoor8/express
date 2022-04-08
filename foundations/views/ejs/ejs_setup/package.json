@@ -1,0 +1,16 @@
+{
+  "name": "ejs_setup",
+  "version": "1.0.0",
+  "description": "Simple express app showing ejs setup",
+  "main": "ejs_setup.js",
+  "scripts": {
+    "start": "node ejs_setup.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Siddharth Kapoor",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1"
+  }
+}

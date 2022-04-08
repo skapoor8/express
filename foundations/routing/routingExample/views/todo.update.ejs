@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Update</title>
+</head>
+<body>
+    <h1>Update Todo</h1>
+    <form action="/todo/update/<%- todo.id %>" method="POST">
+        <input name="todo-done" type="checkbox" <%- todo.done ? 'checked' : '' %>>
+        <input name="todo-task" type="text" value="<%- todo.task %>">
+        <input type="submit">
+        <button type="button" onclick="window.location='/todo/'">Cancel</button>
+    </form>
+</body>
+</html>

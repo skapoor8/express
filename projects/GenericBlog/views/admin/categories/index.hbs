@@ -1,0 +1,68 @@
+<div>
+    <h1>All Categories</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="category-list">
+            {{#each categories}}
+                <tr>
+                    <td>{{title}}</td>
+                    <td>
+                        <a href="/haiku/categories/{{_id}}/edit">Edit</a>
+                        <form action="/haiku/categories/{{_id}}/delete?newMethod=DELETE" method="post">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+
+            {{/each}}
+
+        </tbody>
+    </table>
+    
+    <hr>
+
+    <form action="/haiku/categories/create" method="post">
+        <label for="title">Title</label>
+        <input type="text" id="category-title" name="title" placeholder="Enter Title">
+
+        <button typ="submit" id="create-category-button">Create Category</button>
+    </form>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#create-category-button').on('click', function(e) {
+            e.preventDefault();
+
+            var data = $('#category-title').val();
+            $.ajax({
+                url: '/haiku/categories',
+                type: 'POST',
+                data: {name: data},
+                success: function(response) {
+                    var html = `
+                        <tr>
+                            <td>${response.title}</td>
+                            <td>
+                                <a href="/haiku/categories/${response._id}/edit">Edit</a>
+                                <form action="/haiku/categories/${response._id}/delete?newMethod=DELETE" method="post">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                    `;
+                    $('#category-list').append(html);
+                }
+            })
+
+        })
+    })
+
+</script>

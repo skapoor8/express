@@ -1,0 +1,26 @@
+/* 
+    INDEX PAGE
+*/
+
+.post-thumbnail {
+    padding-top: 300px;
+    width: 400px;
+    background-size: auto 100%;
+}
+
+
+/* 
+    POST PAGE
+*/
+
+.post-cover {
+    padding-top: 600px;
+    width: 800px;
+    background-size: auto 100%;
+}
+
+
+
+/* 
+    COMMENTS PAGE
+*/

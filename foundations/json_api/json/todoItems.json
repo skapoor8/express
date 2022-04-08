@@ -1,0 +1,42 @@
+[
+    {
+        "type": "TodoItem",
+        "id": 1,
+        "title": "Go grocery shopping",
+        "done": false,
+        "createdAt": null,
+        "updatedAt": null,
+        "dueAt": null,
+        "completedAt": null
+    },
+    {
+        "type": "TodoItem",
+        "id": 2,
+        "title": "Accept offer letter by email",
+        "done": false,
+        "createdAt": null,
+        "updatedAt": null,
+        "dueAt": null,
+        "completedAt": null
+    },
+    {
+        "type": "TodoItem",
+        "id": 3,
+        "title": "Play with Bilbo",
+        "done": false,
+        "createdAt": null,
+        "updatedAt": null,
+        "dueAt": null,
+        "completedAt": null
+    },
+    {
+        "type": "TodoItem",
+        "id": 4,
+        "title": "Snuggle Honeybee",
+        "done": false,
+        "createdAt": null,
+        "updatedAt": null,
+        "dueAt": null,
+        "completedAt": null
+    }
+]

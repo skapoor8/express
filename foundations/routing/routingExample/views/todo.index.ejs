@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Index</title>
+    <script>
+        function toggleTodoItem(cbx) {
+            var todoId = cbx.value,
+                todoDone = cbx.checked;
+            console.log('Todo of id', todoId, 'marked', todoDone ? 'complete' : 'incomplete');
+
+            fetch('/todo/update/'+todoId, {
+                method: "POST", 
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({'todo-done': todoDone ? 1 : 0})
+            }).then(res => {
+                console.log("Request complete! response:", res);
+            }).catch(err => {
+                console.log(err);
+                cbx.checked = !todoDone;
+            });
+        }
+
+        function deleteTodoItem(e) {
+            e.preventDefault();
+            console.log('delete attempted');
+            var id = e.target.dataset.todoId;
+            var todoItem = document.querySelector('li.todoItem[data-todo-id="'+id+'"]');
+            fetch('/todo/delete/'+id, {
+                method: "DELETE", 
+                headers: { "Content-Type": "application/json" }
+            }).then(res => {
+                console.log("Delete complete! response:", res);
+                todoItem.remove();
+            }).catch(err => {
+                console.log(err);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Todo Index</h1>
+    <% if (locals.error) { %>
+        <h2>error: <%- error %></h2>
+    <% } else if (locals.success) { %>
+        <h2>success: <%- success %></h2>
+    <% } %>
+
+    <ol>
+        <% todo.forEach(function(todoItem) {%>
+        <li class="todoItem" data-todo-id="<%- todoItem.id %>">
+            <input value="<%- todoItem.id %>" 
+                type="checkbox" <%- todoItem.done ? 'checked' : ''%> 
+                onclick="toggleTodoItem(this)"
+                >
+            <%- todoItem.task %> | <a href="/todo/update/<%- todoItem.id%>">Update</a> | <a href data-todo-id="<%- todoItem.id %>" onclick="deleteTodoItem(event)">Delete</a>
+        </li>
+        <% }); %>
+    </ol>
+    <button onclick="window.location='/todo/create'">Create New</button>
+    
+</body>
+</html>

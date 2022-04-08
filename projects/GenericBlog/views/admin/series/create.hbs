@@ -1,0 +1,93 @@
+<h1>Create New Series</h1>
+
+<form action="/haiku/series/create" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="title">Series Title</label>
+        <input type="text" name="title" id="title" placeholder="Enter the Title">
+    </div>
+
+    <div>
+        <label for="description">Series Description</label>
+        <textarea name="description" id="description" placeholder="Enter your content here" rows="10"></textarea>
+    </div>
+
+    <!--script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <select name="siteID" id="siteID" class="abcd" style="width:100%">
+        <option id="default" value='' disabled selected> Select a post to add </option>
+        {{#each posts}}
+            <option value="{{_id}}">{{title}}</option>
+        {{/each}}
+    </select>
+
+    <table id="sortable">
+        <tbody>
+
+        </tbody>
+    </table>
+
+    <button type="submit">Create Series</button>
+
+</form>
+
+<script>
+    $(document).ready( function() {
+        $( function() {
+            $( "#sortable tbody" ).sortable({
+                stop: function(event, ui) {
+                    //alert("!");
+                    var data = $(this).sortable('toArray');
+                    console.log("updated");
+                    console.log(data);
+                }
+            });
+            $( "#sortable tbody" ).disableSelection();
+        });
+
+        //$(function () {
+        //    $("select").select2();
+        //});
+        //$(document).ready(function () {
+        var inSeries = [];
+        $('select').selectize({
+            sortField: 'text',
+            
+        });
+        
+        $("select").change(function(){
+                    var name = $(this).val();
+                    var subject = $(this).text();
+                    if (subject != "") {
+                        var markup = `<tr id="${name}"><td>` + name + "</td><td>" + subject + `</td><td><button class="removeSeries" id="${name}" onclick="removeRow(this)">Remove</button></td></tr>`;
+                        $("table tbody").append(markup);
+                    
+                        var $select = $(this).selectize();
+                        var control = $select[0].selectize;
+                        control.clear();
+
+                        inSeries.push(name);
+                        console.log(inSeries);
+                    }
+                    
+                    
+        }); 
+        removeRow = function(el) {
+            $(el).parents("tr").remove();
+            inSeries = jQuery.grep(inSeries, function(value) {
+                return value != $(el).parents("tr").attr("id");
+            });
+            $(el).parents("tr").remove();
+            console.log(inSeries);
+        }
+    });
+    
+</script>
+
+<style>
+    @import url(https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css);
+</style>

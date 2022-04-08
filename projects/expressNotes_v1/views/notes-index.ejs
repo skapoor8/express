@@ -1,0 +1,21 @@
+<%- include('header') %>
+    <hr>
+
+    <h2>All Notes</h2>
+    <% if (notes.length) { %>
+        <% notes.forEach(function(note) { %>
+            <%= note.title %>
+            <%= note.published %>
+            <%= note.body %>
+        <% }) %>
+        Notes
+    <% } else { %>
+        No notes
+    <% } %>
+    <br>
+    <br>
+    <a href="/notes/new">New</a>
+
+    <hr>
+<%- include('footer') %>
+    

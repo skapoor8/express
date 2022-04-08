@@ -1,0 +1,27 @@
+{{#each categories}} 
+    {{title}} | 
+{{/each}}
+<hr>
+
+
+<h1>Homepage</h1>
+
+
+
+<h2>List of Posts</h2>
+
+<div>
+    {{#each posts}} 
+        <div>
+            {{#if coverImage}}
+                <div class="post-thumbnail" style="background-image: url({{coverImage}})"></div>
+            {{/if}}
+            {{ title }} <br>
+            {{ description }} <br>
+            <a href="/post/{{_id}}">View</a> <br><br>
+        </div>
+    {{/each}}
+</div>
+    
+
+
